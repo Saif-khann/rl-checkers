@@ -60,3 +60,18 @@ def count_pieces(board):
 p1, p1k, p2, p2k = count_pieces(board)
 print(f"Player 1 — pieces: {p1}, kings: {p1k}")
 print(f"Player 2 — pieces: {p2}, kings: {p2k}")
+
+def is_valid_square(row, col):
+    if row < 0 or row > 7:
+        return False
+    if col < 0 or col > 7:
+        return False
+    if (row + col) % 2 == 0:
+        return False
+    return True
+
+
+print(is_valid_square(0, 1))  # True  — dark square, inside board
+print(is_valid_square(0, 0))  # False — light square
+print(is_valid_square(9, 3))  # False — outside board
+print(is_valid_square(3, 8))  # False — outside board
