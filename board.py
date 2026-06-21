@@ -75,3 +75,40 @@ print(is_valid_square(0, 1))  # True  — dark square, inside board
 print(is_valid_square(0, 0))  # False — light square
 print(is_valid_square(9, 3))  # False — outside board
 print(is_valid_square(3, 8))  # False — outside board
+
+def get_valid_moves(board, row, col):
+    moves = []
+    piece = board[row][col]
+
+    if piece == 0:
+        return moves
+
+    if piece == 1:
+        directions = [(-1, -1), (-1, 1)]
+    elif piece == -1:
+        directions = [(1, -1), (1, 1)]
+    else:
+        directions = [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+
+    for direction in directions:
+        row_step = direction[0]
+        col_step = direction[1]
+
+        next_row = row + row_step
+        next_col = col + col_step
+
+        if is_valid_square(next_row, next_col):
+            if board[next_row][next_col] == 0:
+                moves.append((next_row, next_col))
+            elif board[next_row][next_col] * piece < 0:
+                jump_row = next_row + row_step
+                jump_col = next_col + col_step
+                if is_valid_square(jump_row, jump_col):
+                    if board[jump_row][jump_col] == 0:
+                        moves.append((jump_row, jump_col))
+
+    return moves
+
+
+print(get_valid_moves(board, 5, 0))
+print(get_valid_moves(board, 5, 2))
